@@ -2,23 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
 
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> userChoices = new ArrayList<>();
         ArrayList<String> computerChoices = new ArrayList<>();
+        int userScore = 0;
+        int computerScore = 0;
 
         System.out.println("How many rounds would you like to play?");
         int numberRounds = sc.nextInt();
         sc.nextLine();
 
         for (int i = 0; i < numberRounds; i++) {
-            int userScore = 0;
-            int computerScore = 0;
             //rock will be 0, paper 1, scissors 2
             String[] options = {"rock", "paper", "scissors"};
             int userChoiceIndex;
             String userChoice;
-            String computerChoice;
 
             System.out.println("lets start! rock, paper, scissors shoot!");
             userChoice = sc.nextLine();
@@ -27,45 +27,33 @@ public class Main {
                 userChoice = sc.nextLine();
             }
             userChoiceIndex = convertingUserChoice(userChoice);
-            userChoices.add(options[userChoiceIndex]);
 
             int computerChoiceIndex = (int) (Math.random() * 2);
-            computerChoice = convertingComputerChoice(computerChoiceIndex);
             computerChoices.add(options[computerChoiceIndex]);
+            userChoices.add(options[userChoiceIndex]);
 
-            int a = Integer.parseInt(userChoices.get(i));
-            int b = Integer.parseInt(computerChoices.get(i));
-
-
-            if (a == b) {
-                System.out.println("its a tie! the computer chose: " + computerChoice);
+            if (userChoiceIndex == computerChoiceIndex ) {
+                System.out.println("its a tie! The score is: " + userScore + ", " + computerScore);
             }
-            else if(a == 0 && b == 2 || a == 1 && b == 0 || a == 2 && b ==1){
+            else if(userChoiceIndex == 0 && computerChoiceIndex == 2
+                    || userChoiceIndex == 1 && computerChoiceIndex == 0
+                    || userChoiceIndex == 2 &&  computerChoiceIndex == 1){
                 ++userScore;
-                System.out.println("You win this round! The score is: " + userScore + ", " + computerScore +
-                        "\n The computer chose: " + computerChoice);
+                System.out.println("You win this round! The score is: " + userScore + ", " + computerScore);
             }
             else{
                 ++computerScore;
-                System.out.println("You lose this round! The score is: " + userScore + ", " + computerScore +
-                        "\n The computer chose: " + computerChoice);
+                System.out.println("You lose this round! The score is: " + userScore + ", " + computerScore);
             }
 
+            System.out.println("For round " + (i+1) + " you chose " + userChoices.get(i) + ", and the computer chose " + computerChoices.get(i));
+
         }
+
 
     }
 
 
-    public static String convertingComputerChoice(int computerChoiceIndex){
-        if (computerChoiceIndex == 0) {
-            return "rock";
-        } else if (computerChoiceIndex == 1) {
-            return "paper";
-        } else {
-            return "scissors";
-        }
-
-    }
 
     public static int convertingUserChoice(String userChoice){
         if (userChoice.equals("rock")) {
@@ -78,4 +66,3 @@ public class Main {
     }
 
 }
-
